@@ -1,11 +1,16 @@
 package com.example.lab_2_20210751;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,14 +20,18 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        TextView teleGame = findViewById(R.id.textView5);
 
         Button jugar = findViewById(R.id.button);
         jugar.setEnabled(false);
+
+        registerForContextMenu(teleGame);
 
         EditText nombre = findViewById(R.id.editTextText2);
 
@@ -56,4 +65,35 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+    //Tomado de la ppt de la clase
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+        super.onCreateContextMenu(menu,v,menuInfo);
+        getMenuInflater().inflate(R.menu.menu,menu);
+    }
+
+// Tomado de la ppt de la clase
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        TextView teleGame = findViewById(R.id.textView5);
+
+        if (item.getItemId() == R.id.verde){
+            teleGame.setTextColor(Color.GREEN);
+            return true;
+
+        } else if (item.getItemId()==R.id.rojo) {
+            teleGame.setTextColor(Color.RED);
+            return true;
+
+        } else if (item.getItemId()==R.id.morado) {
+            teleGame.setTextColor(Color.MAGENTA);
+            return true;
+        }else{
+            return super.onContextItemSelected(item);
+        }
+
+    }
+
+
 }

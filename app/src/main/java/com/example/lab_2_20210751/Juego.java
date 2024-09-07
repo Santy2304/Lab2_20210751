@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -27,6 +30,9 @@ public class Juego extends AppCompatActivity {
     private LinearLayout linearLayout;
     private String palabraElegida;
 
+    private long startTime;
+    private long endTime;
+
     private ImageView cabeza;
     private ImageView torso;
     private ImageView brazoDer;
@@ -35,7 +41,7 @@ public class Juego extends AppCompatActivity {
     private ImageView piernaIz;
 
     private TextView mensaje;
-    private int vidas = 6;
+    private int vidas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +51,14 @@ public class Juego extends AppCompatActivity {
         palabras = getResources().getStringArray(R.array.palabras);
         linearLayout=findViewById(R.id.linearLayout);
         random = new Random();
+        vidas=6;
         elegirPalabra();
+
+        Button nuevoJuego = findViewById(R.id.button2);
+        nuevoJuego.setOnClickListener(view -> crearNuevoJuego());
+
+        // Código tomado de ChatGPT para sacar el tiempo inicial
+        startTime = System.currentTimeMillis();
 
         mensaje = findViewById(R.id.mensaje);
         mensaje.setVisibility(View.INVISIBLE);
@@ -121,6 +134,7 @@ public class Juego extends AppCompatActivity {
     }
 
     private void elegirPalabra(){
+        linearLayout.removeAllViews();
         palabraElegida = palabras[random.nextInt(palabras.length)];
         Log.d("Juego", "Palabra: " + palabraElegida);
 
@@ -131,6 +145,7 @@ public class Juego extends AppCompatActivity {
             letra[i].setText("");
             letra[i].setGravity(Gravity.CENTER);
             letra[i].setBackgroundResource(R.drawable.pngwing_com);
+            letra[i].getBackground().setAlpha(255);
 
             //Código usado de ChatGPT para añadir margenes entre los espacios entre letras
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(80, 80);
@@ -149,6 +164,7 @@ public class Juego extends AppCompatActivity {
         for (int i = 0; i< palabraElegida.length();i++){
             if(palabraElegida.charAt(i) == letraBoton){
                 letra[i].setText(String.valueOf(letraBoton));
+                letra[i].getBackground().setAlpha(0);
                 centinela=true;
             }
         }
@@ -175,8 +191,65 @@ public class Juego extends AppCompatActivity {
         } else if (vidas==1) {
             piernaIz.setVisibility(View.VISIBLE);
         } else if (vidas==0) {
+            // Código tomado de ChatGPT para calcular el tiempo final
+            endTime = System.currentTimeMillis();
+            long tiempo = endTime - startTime;
+            long tiempoSegundos = tiempo / 1000;
             piernaDer.setVisibility(View.VISIBLE);
-            mensaje.setText("Perdiste");
+            mensaje.setText("Perdiste / Termino en " + tiempoSegundos + " segundos");
+            Button letraA = findViewById(R.id.letraA);
+            Button letraB = findViewById(R.id.letraB);
+            Button letraC = findViewById(R.id.letraC);
+            Button letraD = findViewById(R.id.letraD);
+            Button letraE = findViewById(R.id.letraE);
+            Button letraF = findViewById(R.id.letraF);
+            Button letraG = findViewById(R.id.letraG);
+            Button letraH = findViewById(R.id.letraH);
+            Button letraI = findViewById(R.id.letraI);
+            Button letraJ = findViewById(R.id.letraJ);
+            Button letraK = findViewById(R.id.letraK);
+            Button letraL = findViewById(R.id.letraL);
+            Button letraM = findViewById(R.id.letraM);
+            Button letraN = findViewById(R.id.letraN);
+            Button letraO = findViewById(R.id.letraO);
+            Button letraP = findViewById(R.id.letraP);
+            Button letraQ = findViewById(R.id.letraQ);
+            Button letraR = findViewById(R.id.letraR);
+            Button letraS = findViewById(R.id.letraS);
+            Button letraT = findViewById(R.id.letraT);
+            Button letraU = findViewById(R.id.letraU);
+            Button letraV = findViewById(R.id.letraV);
+            Button letraW = findViewById(R.id.letraW);
+            Button letraX = findViewById(R.id.letraX);
+            Button letraY = findViewById(R.id.letraY);
+            Button letraZ = findViewById(R.id.letraZ);
+
+            letraA.setEnabled(false);
+            letraB.setEnabled(false);
+            letraC.setEnabled(false);
+            letraD.setEnabled(false);
+            letraE.setEnabled(false);
+            letraF.setEnabled(false);
+            letraG.setEnabled(false);
+            letraH.setEnabled(false);
+            letraI.setEnabled(false);
+            letraJ.setEnabled(false);
+            letraK.setEnabled(false);
+            letraL.setEnabled(false);
+            letraM.setEnabled(false);
+            letraN.setEnabled(false);
+            letraO.setEnabled(false);
+            letraP.setEnabled(false);
+            letraQ.setEnabled(false);
+            letraR.setEnabled(false);
+            letraS.setEnabled(false);
+            letraT.setEnabled(false);
+            letraU.setEnabled(false);
+            letraV.setEnabled(false);
+            letraW.setEnabled(false);
+            letraX.setEnabled(false);
+            letraY.setEnabled(false);
+            letraZ.setEnabled(false);
             mensaje.setVisibility(View.VISIBLE);
         }
     }
@@ -191,12 +264,200 @@ public class Juego extends AppCompatActivity {
             }
         }
         if (centinela){
-            mensaje.setText("Ganaste");
+
+            // Código tomado de ChatGPT para calcular el tiempo final
+            endTime = System.currentTimeMillis();
+            long tiempo = endTime - startTime;
+            long tiempoSegundos = tiempo / 1000;
+            Button letraA = findViewById(R.id.letraA);
+            Button letraB = findViewById(R.id.letraB);
+            Button letraC = findViewById(R.id.letraC);
+            Button letraD = findViewById(R.id.letraD);
+            Button letraE = findViewById(R.id.letraE);
+            Button letraF = findViewById(R.id.letraF);
+            Button letraG = findViewById(R.id.letraG);
+            Button letraH = findViewById(R.id.letraH);
+            Button letraI = findViewById(R.id.letraI);
+            Button letraJ = findViewById(R.id.letraJ);
+            Button letraK = findViewById(R.id.letraK);
+            Button letraL = findViewById(R.id.letraL);
+            Button letraM = findViewById(R.id.letraM);
+            Button letraN = findViewById(R.id.letraN);
+            Button letraO = findViewById(R.id.letraO);
+            Button letraP = findViewById(R.id.letraP);
+            Button letraQ = findViewById(R.id.letraQ);
+            Button letraR = findViewById(R.id.letraR);
+            Button letraS = findViewById(R.id.letraS);
+            Button letraT = findViewById(R.id.letraT);
+            Button letraU = findViewById(R.id.letraU);
+            Button letraV = findViewById(R.id.letraV);
+            Button letraW = findViewById(R.id.letraW);
+            Button letraX = findViewById(R.id.letraX);
+            Button letraY = findViewById(R.id.letraY);
+            Button letraZ = findViewById(R.id.letraZ);
+
+            letraA.setEnabled(false);
+            letraB.setEnabled(false);
+            letraC.setEnabled(false);
+            letraD.setEnabled(false);
+            letraE.setEnabled(false);
+            letraF.setEnabled(false);
+            letraG.setEnabled(false);
+            letraH.setEnabled(false);
+            letraI.setEnabled(false);
+            letraJ.setEnabled(false);
+            letraK.setEnabled(false);
+            letraL.setEnabled(false);
+            letraM.setEnabled(false);
+            letraN.setEnabled(false);
+            letraO.setEnabled(false);
+            letraP.setEnabled(false);
+            letraQ.setEnabled(false);
+            letraR.setEnabled(false);
+            letraS.setEnabled(false);
+            letraT.setEnabled(false);
+            letraU.setEnabled(false);
+            letraV.setEnabled(false);
+            letraW.setEnabled(false);
+            letraX.setEnabled(false);
+            letraY.setEnabled(false);
+            letraZ.setEnabled(false);
+
+
+            mensaje.setText("Ganó / Termino en " + tiempoSegundos + " segundos");
             mensaje.setVisibility(View.VISIBLE);
+
         }
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_icono,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId()==R.id.estadisticas){
 
 
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    public void crearNuevoJuego(){
+        vidas=6;
+        Button letraA = findViewById(R.id.letraA);
+        Button letraB = findViewById(R.id.letraB);
+        Button letraC = findViewById(R.id.letraC);
+        Button letraD = findViewById(R.id.letraD);
+        Button letraE = findViewById(R.id.letraE);
+        Button letraF = findViewById(R.id.letraF);
+        Button letraG = findViewById(R.id.letraG);
+        Button letraH = findViewById(R.id.letraH);
+        Button letraI = findViewById(R.id.letraI);
+        Button letraJ = findViewById(R.id.letraJ);
+        Button letraK = findViewById(R.id.letraK);
+        Button letraL = findViewById(R.id.letraL);
+        Button letraM = findViewById(R.id.letraM);
+        Button letraN = findViewById(R.id.letraN);
+        Button letraO = findViewById(R.id.letraO);
+        Button letraP = findViewById(R.id.letraP);
+        Button letraQ = findViewById(R.id.letraQ);
+        Button letraR = findViewById(R.id.letraR);
+        Button letraS = findViewById(R.id.letraS);
+        Button letraT = findViewById(R.id.letraT);
+        Button letraU = findViewById(R.id.letraU);
+        Button letraV = findViewById(R.id.letraV);
+        Button letraW = findViewById(R.id.letraW);
+        Button letraX = findViewById(R.id.letraX);
+        Button letraY = findViewById(R.id.letraY);
+        Button letraZ = findViewById(R.id.letraZ);
+
+        letraA.setEnabled(true);
+        letraB.setEnabled(true);
+        letraC.setEnabled(true);
+        letraD.setEnabled(true);
+        letraE.setEnabled(true);
+        letraF.setEnabled(true);
+        letraG.setEnabled(true);
+        letraH.setEnabled(true);
+        letraI.setEnabled(true);
+        letraJ.setEnabled(true);
+        letraK.setEnabled(true);
+        letraL.setEnabled(true);
+        letraM.setEnabled(true);
+        letraN.setEnabled(true);
+        letraO.setEnabled(true);
+        letraP.setEnabled(true);
+        letraQ.setEnabled(true);
+        letraR.setEnabled(true);
+        letraS.setEnabled(true);
+        letraT.setEnabled(true);
+        letraU.setEnabled(true);
+        letraV.setEnabled(true);
+        letraW.setEnabled(true);
+        letraX.setEnabled(true);
+        letraY.setEnabled(true);
+        letraZ.setEnabled(true);
+
+        palabras = getResources().getStringArray(R.array.palabras);
+        linearLayout=findViewById(R.id.linearLayout);
+        random = new Random();
+
+        elegirPalabra();
+
+        startTime = System.currentTimeMillis();
+
+        mensaje = findViewById(R.id.mensaje);
+        mensaje.setVisibility(View.INVISIBLE);
+
+        cabeza = findViewById(R.id.cabeza);
+        torso = findViewById(R.id.torso);
+        brazoDer = findViewById(R.id.brazoDere);
+        brazoIz = findViewById(R.id.brazoIz);
+        piernaIz = findViewById(R.id.piernaIz);
+        piernaDer = findViewById(R.id.piernaDer);
+
+        cabeza.setVisibility(View.INVISIBLE);
+        torso.setVisibility(View.INVISIBLE);
+        brazoDer.setVisibility(View.INVISIBLE);
+        brazoIz.setVisibility(View.INVISIBLE);
+        piernaIz.setVisibility(View.INVISIBLE);
+        piernaDer.setVisibility(View.INVISIBLE);
+
+
+        letraA.setOnClickListener(view -> verificarLetra('A',letraA));
+        letraB.setOnClickListener(view -> verificarLetra('B',letraB));
+        letraC.setOnClickListener(view -> verificarLetra('C',letraC));
+        letraD.setOnClickListener(view -> verificarLetra('D',letraD));
+        letraE.setOnClickListener(view -> verificarLetra('E',letraE));
+        letraF.setOnClickListener(view -> verificarLetra('F',letraF));
+        letraG.setOnClickListener(view -> verificarLetra('G',letraG));
+        letraH.setOnClickListener(view -> verificarLetra('H',letraH));
+        letraI.setOnClickListener(view -> verificarLetra('I',letraI));
+        letraJ.setOnClickListener(view -> verificarLetra('J',letraJ));
+        letraK.setOnClickListener(view -> verificarLetra('K',letraK));
+        letraL.setOnClickListener(view -> verificarLetra('L',letraL));
+        letraM.setOnClickListener(view -> verificarLetra('M',letraM));
+        letraN.setOnClickListener(view -> verificarLetra('N',letraN));
+        letraO.setOnClickListener(view -> verificarLetra('O',letraO));
+        letraP.setOnClickListener(view -> verificarLetra('P',letraP));
+        letraQ.setOnClickListener(view -> verificarLetra('Q',letraQ));
+        letraR.setOnClickListener(view -> verificarLetra('R',letraR));
+        letraS.setOnClickListener(view -> verificarLetra('S',letraS));
+        letraT.setOnClickListener(view -> verificarLetra('T',letraT));
+        letraU.setOnClickListener(view -> verificarLetra('U',letraU));
+        letraV.setOnClickListener(view -> verificarLetra('V',letraV));
+        letraW.setOnClickListener(view -> verificarLetra('W',letraW));
+        letraX.setOnClickListener(view -> verificarLetra('X',letraX));
+        letraY.setOnClickListener(view -> verificarLetra('Y',letraY));
+        letraZ.setOnClickListener(view -> verificarLetra('Z',letraZ));
+
+    }
 }
