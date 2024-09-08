@@ -27,6 +27,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Juego extends AppCompatActivity {
@@ -37,6 +38,7 @@ public class Juego extends AppCompatActivity {
     private LinearLayout linearLayout;
     private String palabraElegida;
 
+    private ArrayList<Partida> partidas;
     private long startTime;
     private long endTime;
 
@@ -137,6 +139,11 @@ public class Juego extends AppCompatActivity {
         letraX.setOnClickListener(view -> verificarLetra('X',letraX));
         letraY.setOnClickListener(view -> verificarLetra('Y',letraY));
         letraZ.setOnClickListener(view -> verificarLetra('Z',letraZ));
+
+
+        Partida partida = new Partida();
+        partida.setNombre(nombre);
+
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
