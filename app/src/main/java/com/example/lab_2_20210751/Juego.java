@@ -1,5 +1,7 @@
 package com.example.lab_2_20210751;
 
+import android.content.ClipData;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultCaller;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -42,12 +49,18 @@ public class Juego extends AppCompatActivity {
 
     private TextView mensaje;
     private int vidas;
+    private String nombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_juego);
+
+
+        Intent intent = getIntent();
+        nombre = intent.getStringExtra("nombre");
+        Log.d("Nombre", "onCreate: "+nombre);
         palabras = getResources().getStringArray(R.array.palabras);
         linearLayout=findViewById(R.id.linearLayout);
         random = new Random();
@@ -148,7 +161,7 @@ public class Juego extends AppCompatActivity {
             letra[i].getBackground().setAlpha(255);
 
             //Código usado de ChatGPT para añadir margenes entre los espacios entre letras
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(80, 80);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(90, 90);
             params.setMargins(20, 5, 20, 5);
             letra[i].setLayoutParams(params);
 
@@ -341,7 +354,9 @@ public class Juego extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if(item.getItemId()==R.id.estadisticas){
-
+            Intent intent = new Intent(this, Estadisticas.class);
+            intent.putExtra("nombre", nombre);
+            launcher.launch(intent);
 
             return true;
         }
@@ -460,4 +475,17 @@ public class Juego extends AppCompatActivity {
         letraZ.setOnClickListener(view -> verificarLetra('Z',letraZ));
 
     }
+
+
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult o) {
+                    Intent resultData = o.getData();
+                    String nombre = resultData.getStringExtra("nombreUsuario");
+                    crearNuevoJuego();
+                }
+
+            }
+    );
 }

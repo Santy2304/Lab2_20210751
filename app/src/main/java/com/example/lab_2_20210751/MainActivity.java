@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         jugar.setOnClickListener(view -> {
             Intent intent = new Intent(this, Juego.class);
+            intent.putExtra("nombre", nombre.getText().toString());
+            Log.d("NOmbre", "onCreate: "+nombre.getText().toString());
             startActivity(intent);
         });
 
